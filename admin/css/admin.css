@@ -1,0 +1,217 @@
+/* Agint Pricing Cards — admin (master/detail manager). */
+
+.apc-admin {
+    --blue: #2271b1;
+    --blue-dark: #135e96;
+    --ink: #1d2327;
+    --muted: #646970;
+    --line: #dcdfe4;
+    --field: #8c8f94;
+    --sel: #f0f6fc;
+    --bg: #f6f7f7;
+
+    max-width: 1080px;
+    margin: 18px 20px 100px 0;
+    color: var(--ink);
+    font-size: 14px;
+}
+.apc-admin * { box-sizing: border-box; }
+
+/* --- Topbar --------------------------------------------------------- */
+.apc-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 14px; margin-bottom: 18px;
+}
+.apc-brand { display: flex; align-items: center; gap: 14px; }
+.apc-brand__mark {
+    width: 46px; height: 46px; font-size: 24px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(34,113,177,.1); color: var(--blue); border-radius: 12px;
+}
+.apc-brand__title { margin: 0; font-size: 23px; font-weight: 700; line-height: 1.2; }
+.apc-brand__sub { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+.apc-shortcode {
+    display: flex; align-items: center; gap: 10px;
+    background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px 8px 14px;
+}
+.apc-shortcode > span { color: var(--muted); font-size: 12px; }
+.apc-shortcode code { background: var(--bg); padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+
+/* --- Notice --------------------------------------------------------- */
+.apc-notice {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-weight: 600;
+}
+.apc-notice.is-success { background: #edf7ed; color: #1e6a24; border: 1px solid #b7e0ba; }
+.apc-notice.is-error   { background: #fdecec; color: #9b2323; border: 1px solid #f3b7b7; }
+
+/* --- Tabs ----------------------------------------------------------- */
+.apc-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
+.apc-tab {
+    background: none; border: 0; cursor: pointer; padding: 12px 18px; margin-bottom: -1px;
+    font-size: 14px; font-weight: 600; color: var(--muted);
+    border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;
+}
+.apc-tab:hover { color: var(--ink); }
+.apc-tab.is-active { color: var(--blue); border-bottom-color: var(--blue); }
+.apc-tab-panel { display: none; }
+.apc-tab-panel.is-active { display: block; }
+
+/* --- Master / detail layout ---------------------------------------- */
+.apc-plans-layout { display: grid; grid-template-columns: 300px 1fr; gap: 20px; align-items: start; }
+
+.apc-list-card, .apc-editor-card, .apc-card-box {
+    background: #fff; border: 1px solid var(--line); border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.03);
+}
+.apc-list-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 14px 14px; border-bottom: 1px solid var(--line);
+}
+.apc-list-head strong { font-size: 14px; }
+.apc-list-count { color: var(--muted); font-weight: 400; }
+
+.apc-plan-list { list-style: none; margin: 0; padding: 6px; max-height: 620px; overflow-y: auto; }
+.apc-plan-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 10px; border-radius: 8px; cursor: pointer;
+    border-left: 3px solid transparent; transition: background .15s;
+}
+.apc-plan-item:hover { background: #f6f7f8; }
+.apc-plan-item.is-active { background: var(--sel); border-left-color: var(--blue); }
+.apc-plan-item__handle { color: #b5b9bf; cursor: grab; flex: 0 0 auto; }
+.apc-plan-item__body { flex: 1 1 auto; min-width: 0; }
+.apc-plan-item__name {
+    display: block; font-weight: 600; font-size: 13.5px; color: var(--ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.apc-plan-item__meta { display: block; margin-top: 1px; font-size: 12px; color: var(--muted); }
+.apc-plan-item__star { color: var(--blue); font-size: 15px; width: 15px; height: 15px; flex: 0 0 auto; }
+.apc-plan-item__star[hidden] { display: none; }
+
+/* --- Editor -------------------------------------------------------- */
+.apc-editor-card { padding: 0; min-height: 300px; }
+.apc-editor-stack { }
+.apc-plan { display: none; padding: 20px 22px; }
+.apc-plan.is-active { display: block; }
+
+.apc-editor__head {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    flex-wrap: wrap; margin-bottom: 20px;
+}
+.apc-editor__title { margin: 0; font-size: 16px; font-weight: 700; }
+.apc-editor__actions { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+
+.apc-editor-empty {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px; padding: 60px 20px; color: var(--muted); text-align: center;
+}
+.apc-editor-empty .dashicons { font-size: 34px; width: 34px; height: 34px; opacity: .4; }
+
+/* --- Sections ------------------------------------------------------ */
+.apc-section { padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid #f0f0f1; }
+.apc-section:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+.apc-section__label {
+    font-size: 11px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 14px;
+}
+
+/* --- Fields -------------------------------------------------------- */
+.apc-field { margin-bottom: 16px; }
+.apc-field:last-child { margin-bottom: 0; }
+.apc-field > label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; }
+.apc-sublabel { display: block; color: var(--muted); font-size: 12px; margin: -3px 0 6px; }
+.apc-input {
+    width: 100%; padding: 7px 11px; font-size: 14px; color: var(--ink);
+    background: #fff; border: 1px solid var(--field); border-radius: 6px; transition: border-color .15s, box-shadow .15s;
+}
+.apc-input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 1px var(--blue); }
+textarea.apc-input { line-height: 1.5; resize: vertical; }
+.apc-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+.apc-help { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+
+.apc-grid-2, .apc-grid-3 { display: grid; gap: 14px; margin-bottom: 16px; }
+.apc-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.apc-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.apc-grid-2 .apc-field, .apc-grid-3 .apc-field { margin-bottom: 0; }
+.apc-field--narrow { max-width: 220px; }
+
+/* --- Checkboxes ---------------------------------------------------- */
+.apc-check { display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 8px; font-size: 13px; }
+.apc-check:last-child { margin-bottom: 0; }
+.apc-check input[type="checkbox"] { width: 16px; height: 16px; margin: 0; accent-color: var(--blue); flex: 0 0 auto; }
+.apc-check__hint { color: var(--muted); font-weight: 400; }
+.apc-check--inline { margin-bottom: 0; margin-left: 4px; }
+
+/* --- Icon row ------------------------------------------------------ */
+.apc-icon-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.apc-icon-preview {
+    width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; overflow: hidden; background: #fff; flex: 0 0 auto;
+}
+.apc-icon-preview img { max-width: 100%; max-height: 100%; display: block; }
+.apc-icon-preview.is-empty::before { content: "\f128"; font-family: dashicons; color: #c3c4c7; font-size: 22px; }
+
+/* --- Swatches ------------------------------------------------------ */
+.apc-swatches { display: flex; gap: 10px; }
+.apc-swatch {
+    width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
+    background: var(--sw); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--line); transition: box-shadow .15s;
+}
+.apc-swatch:hover { box-shadow: 0 0 0 2px var(--field); }
+.apc-swatch.is-active { box-shadow: 0 0 0 2px var(--sw); }
+
+/* --- Segmented control --------------------------------------------- */
+.apc-segmented { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #fff; padding: 3px; gap: 3px; }
+.apc-seg input { position: absolute; opacity: 0; }
+.apc-seg > span {
+    display: inline-flex; align-items: center; justify-content: center; min-width: 120px;
+    padding: 8px 16px; cursor: pointer; font-weight: 600; color: var(--muted); border-radius: 6px; transition: .15s;
+}
+.apc-seg input:checked + span { background: var(--sel); color: var(--blue); box-shadow: inset 0 0 0 1px var(--blue); }
+.apc-carousel-opts { margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--line); }
+
+/* --- Buttons ------------------------------------------------------- */
+.apc-btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 6px;
+    font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid transparent; text-decoration: none;
+    line-height: 1.2; transition: background .15s, border-color .15s, color .15s;
+}
+.apc-btn .dashicons { font-size: 16px; width: 16px; height: 16px; }
+.apc-btn--sm { padding: 6px 10px; font-size: 12px; }
+.apc-btn--primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+.apc-btn--primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); color: #fff; }
+.apc-btn--primary.is-loading { opacity: .65; pointer-events: none; }
+.apc-btn--ghost { background: #fff; color: var(--ink); border-color: var(--field); }
+.apc-btn--ghost:hover { border-color: var(--blue); color: var(--blue); }
+.apc-btn--danger { background: #fff; color: #b32d2e; border-color: #e0a3a3; }
+.apc-btn--danger:hover { background: #b32d2e; border-color: #b32d2e; color: #fff; }
+.apc-btn--icon { padding: 7px; }
+.apc-btn--icon .dashicons { margin: 0; }
+.apc-link { background: none; border: 0; padding: 0; cursor: pointer; color: var(--blue); font-size: 13px; font-weight: 600; }
+.apc-link:hover { color: var(--blue-dark); text-decoration: underline; }
+
+/* --- Design tab grid ----------------------------------------------- */
+.apc-design-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.apc-card-box { padding: 20px 22px; }
+.apc-box-title { margin: 0 0 16px; font-size: 15px; font-weight: 700; }
+
+/* --- Sticky save bar ----------------------------------------------- */
+.apc-savebar {
+    position: sticky; bottom: 0; z-index: 5;
+    display: flex; align-items: center; justify-content: flex-end; gap: 16px;
+    background: #fff; border: 1px solid var(--line); border-radius: 12px;
+    padding: 12px 18px; margin-top: 22px; box-shadow: 0 -4px 14px rgba(0,0,0,.05);
+}
+.apc-savebar__status { color: var(--muted); font-size: 13px; }
+.apc-savebar__status.is-dirty { color: #b26a00; font-weight: 600; }
+
+/* --- Responsive ---------------------------------------------------- */
+@media (max-width: 900px) {
+    .apc-plans-layout, .apc-design-grid { grid-template-columns: 1fr; }
+    .apc-plan-list { max-height: 260px; }
+}
+@media (max-width: 640px) {
+    .apc-grid-2, .apc-grid-3 { grid-template-columns: 1fr; }
+    .apc-admin { margin-right: 10px; }
+}

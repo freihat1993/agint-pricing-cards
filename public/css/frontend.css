@@ -1,0 +1,387 @@
+/* Agint Pricing Cards — frontend styles.
+
+   Faithfully reproduces the reference "Noile" pricing card, including its two
+   hover mechanics:
+   - Card hover: a 1px border draws out of the bottom-left and top-right
+     corners and runs along the edges (independent of the button).
+   - Button hover: the red bar in the corner expands and un-rotates until it
+     fills the whole button.
+
+   Everything is scoped under .apc-pricing to limit theme bleed. The accent
+   colour comes from the inline --apc-accent custom property. */
+
+.apc-pricing {
+    --apc-ink: #1d1d1d;
+    --apc-muted: #a0a1a6;
+    --apc-line: rgba(29, 29, 29, .1);
+    --apc-card-border: #f6f6f6;
+    --apc-btn: #1d1d1d;
+
+    box-sizing: border-box;
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: "Epilogue", "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.apc-pricing *,
+.apc-pricing *::before,
+.apc-pricing *::after {
+    box-sizing: border-box;
+}
+
+.apc-pricing.apc-cols-1 { grid-template-columns: 1fr; max-width: 430px; }
+.apc-pricing.apc-cols-2 { grid-template-columns: repeat(2, 1fr); max-width: 800px; }
+.apc-pricing.apc-cols-4 { grid-template-columns: repeat(4, 1fr); max-width: 1400px; }
+
+/* --- Card (transparent — no background fill) ------------------------- */
+.apc-card {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    border: 1px solid var(--apc-card-border);
+    padding: 49px 50px 41px;
+    transition: .4s ease-in-out;
+    /* Equal-height cards: fill the row/track and lay out as a column so the
+       button can be pinned to the bottom on every card. */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Card hover: border grows from two opposite corners along the edges. */
+.apc-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 1px solid transparent;
+    border-left: 1px solid transparent;
+    transition: .6s linear;
+}
+.apc-card::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    transition: .6s linear;
+}
+.apc-card:hover::before,
+.apc-card:hover::after {
+    width: 100%;
+    height: 100%;
+    border-color: var(--apc-ink);
+}
+.apc-card:hover {
+    border-color: transparent;
+}
+
+/* Popular ribbon (top-right, offset — matches the reference). */
+.apc-card__ribbon {
+    position: absolute;
+    top: -14px;
+    right: 50px;
+    z-index: 11;
+    padding: 5px 21px;
+    background: var(--apc-accent);
+    color: #fff;
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: nowrap;
+}
+
+/* --- Header ---------------------------------------------------------- */
+.apc-card__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    /* Reserve room for up to a two-line title so the red line + price stay on
+       the same level across all cards, whatever the title length. */
+    min-height: 72px;
+}
+.apc-card__title-box {
+    flex: 1 1 auto;
+    align-self: stretch; /* keep icon + title at the top of the header */
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-width: 0;
+}
+.apc-card__price {
+    flex: 0 0 auto;
+}
+.apc-card__icon {
+    flex: 0 0 auto;
+    width: 54px;
+    display: inline-flex;
+    align-items: flex-start;
+}
+.apc-card__icon img {
+    width: 54px;
+    height: 50px;
+    object-fit: contain;
+    display: block;
+}
+.apc-card__title-inner {
+    min-width: 0;
+}
+.apc-card__title {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--apc-ink);
+}
+.apc-card__period {
+    display: block;
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--apc-muted);
+}
+.apc-card__price {
+    white-space: nowrap;
+    line-height: 1;
+}
+.apc-card__currency {
+    color: var(--apc-accent);
+    font-size: 14px;
+    font-weight: 600;
+    vertical-align: top;
+    position: relative;
+    top: 2px;
+}
+.apc-card__amount {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--apc-ink);
+}
+
+/* --- Divider (grey line with an accent segment on the left) ---------- */
+.apc-card__divider {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    margin: 42px 0 41px;
+    background: var(--apc-line);
+}
+.apc-card__divider::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 146px;
+    height: 1px;
+    background: var(--apc-accent);
+}
+
+/* --- Description (above the feature list — plugin addition) ---------- */
+.apc-card__desc {
+    margin: 0 0 24px;
+    padding: 0;
+    color: var(--apc-muted);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* --- Features -------------------------------------------------------- */
+.apc-card__features {
+    list-style: none;
+    margin: 0 0 42px;
+    padding: 0;
+}
+.apc-card__features li {
+    position: relative;
+    padding-left: 19px;
+    margin: 0 0 13px;
+    color: var(--apc-muted);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.875;
+}
+.apc-card__features li:last-child {
+    margin-bottom: 0;
+}
+.apc-card__features li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 8px;
+    border-style: solid;
+    border-width: 4px 0 4px 6px;
+    border-color: transparent transparent transparent #c2c3c7;
+}
+
+/* --- Button ---------------------------------------------------------- */
+/* Dark button with a red bar tucked into the bottom-right corner. On hover
+   the bar widens and un-rotates, sweeping red across the whole button.
+   z-index:-1 keeps it above the button background but below the label. */
+.apc-card__btn {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    z-index: 1;
+    padding: 20px 32px 18px;
+    background: var(--apc-btn);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.571;
+    text-transform: capitalize;
+    text-decoration: none;
+    /* Pin to the bottom of the card so every button lines up, regardless of
+       how much description / how many features each plan has. */
+    margin-top: auto;
+    align-self: flex-start;
+}
+.apc-card__btn:hover,
+.apc-card__btn:focus {
+    color: #fff;
+}
+.apc-card__btn::after {
+    content: "";
+    position: absolute;
+    right: -18px;
+    bottom: -85px;
+    z-index: -1;
+    width: 20px;
+    height: 194px;
+    background: var(--apc-accent);
+    transform: rotate(45deg);
+    transition: .6s ease-out;
+}
+.apc-card__btn:hover::after,
+.apc-card__btn:focus::after {
+    width: 300px;
+    transform: rotate(0deg);
+}
+.apc-card__btn-plus {
+    margin-left: 2px;
+}
+
+/* --- Carousel -------------------------------------------------------- */
+.apc-pricing.apc-carousel {
+    display: block;
+    position: relative;
+    max-width: 1200px;
+}
+.apc-carousel__viewport {
+    overflow: hidden;
+    /* top room so the "Popular" ribbon (top:-14px) is never clipped */
+    padding: 18px 0 6px;
+}
+.apc-carousel__track {
+    display: flex;
+    align-items: stretch;
+    transition: transform .5s ease;
+    will-change: transform;
+}
+.apc-carousel__track.is-dragging {
+    transition: none;
+    cursor: grabbing;
+}
+.apc-slide {
+    flex: 0 0 auto;
+    width: 100%; /* real value set by JS from slides-per-view */
+    padding: 0 15px;
+}
+.apc-slide > .apc-card {
+    height: 100%;
+}
+
+/* Controls row (prev · dots · next) below the slides. */
+.apc-carousel__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 34px;
+}
+.apc-carousel__nav:empty {
+    display: none;
+}
+.apc-carousel__arrow {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid #e2e2e2;
+    background: #fff;
+    color: var(--apc-ink);
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .3s ease;
+}
+.apc-carousel__arrow span {
+    margin-top: -3px;
+}
+.apc-carousel__arrow:hover:not([disabled]) {
+    background: var(--apc-accent);
+    border-color: var(--apc-accent);
+    color: #fff;
+}
+.apc-carousel__arrow[disabled] {
+    opacity: .4;
+    cursor: default;
+}
+.apc-carousel__dots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.apc-carousel__dot {
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #d5d6d9;
+    cursor: pointer;
+    transition: .3s ease;
+}
+.apc-carousel__dot.is-active {
+    width: 26px;
+    border-radius: 5px;
+    background: var(--apc-accent);
+}
+
+/* --- Admin empty-state note ----------------------------------------- */
+.apc-empty {
+    padding: 14px 18px;
+    background: #fff8e5;
+    border: 1px solid #f0e0a8;
+    border-radius: 6px;
+    color: #6b5b12;
+}
+
+/* --- Responsive ------------------------------------------------------ */
+@media (max-width: 1024px) {
+    .apc-pricing.apc-cols-3,
+    .apc-pricing.apc-cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+    }
+    .apc-card { padding: 40px 34px 34px; }
+    .apc-card__ribbon { right: 34px; }
+}
+@media (max-width: 700px) {
+    .apc-pricing,
+    .apc-pricing.apc-cols-2,
+    .apc-pricing.apc-cols-3,
+    .apc-pricing.apc-cols-4 {
+        grid-template-columns: 1fr;
+        max-width: 430px;
+    }
+}
