@@ -123,6 +123,9 @@ class APC_Admin {
             'popular_label'  => isset( $raw_settings['popular_label'] )
                 ? sanitize_text_field( $raw_settings['popular_label'] )
                 : __( 'Popular', 'agint-pricing-cards' ),
+            'title_width'    => isset( $raw_settings['title_width'] )
+                ? min( 600, max( 40, absint( $raw_settings['title_width'] ) ) )
+                : 200,
             'layout'         => $layout,
             'autoplay'       => empty( $raw_settings['autoplay'] ) ? 0 : 1,
             'autoplay_speed' => isset( $raw_settings['autoplay_speed'] )

@@ -63,6 +63,7 @@ final class APC_Plugin {
         return array(
             'accent_color'   => '#d94645',
             'popular_label'  => __( 'Popular', 'agint-pricing-cards' ),
+            'title_width'    => 200,      // px width of the plan title
             // Display / carousel.
             'layout'         => 'grid',   // 'grid' | 'carousel'
             'autoplay'       => 0,

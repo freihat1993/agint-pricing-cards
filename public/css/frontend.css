@@ -136,6 +136,8 @@
 .apc-card__title {
     margin: 0;
     padding: 0;
+    width: var(--apc-title-width, 200px);
+    max-width: 100%;
     font-size: 20px;
     font-weight: 600;
     line-height: 1.2;

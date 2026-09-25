@@ -226,6 +226,11 @@ $apc_presets = array( '#d94645', '#2271b1', '#2e9e5b', '#e0a935', '#1d1d1d' );
                         <label for="apc-popular-label"><?php esc_html_e( 'Popular badge text', 'agint-pricing-cards' ); ?></label>
                         <input type="text" id="apc-popular-label" class="apc-input" data-field="popular_label" value="<?php echo esc_attr( $settings['popular_label'] ); ?>" />
                     </div>
+                    <div class="apc-field apc-field--narrow">
+                        <label for="apc-title-width"><?php esc_html_e( 'Card title width (px)', 'agint-pricing-cards' ); ?></label>
+                        <input type="number" id="apc-title-width" class="apc-input" data-field="title_width" min="40" max="600" step="10" value="<?php echo esc_attr( $settings['title_width'] ); ?>" />
+                        <p class="apc-help"><?php esc_html_e( 'Fixed width of the plan title on the card. Default 200.', 'agint-pricing-cards' ); ?></p>
+                    </div>
                 </div>
 
                 <div class="apc-card-box">

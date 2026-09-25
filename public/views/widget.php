@@ -91,7 +91,8 @@ if ( ! function_exists( 'apc_render_card' ) ) {
     }
 }
 
-$root_style = '--apc-accent: ' . esc_attr( $accent ) . ';';
+$title_width = isset( $settings['title_width'] ) ? absint( $settings['title_width'] ) : 200;
+$root_style  = '--apc-accent: ' . esc_attr( $accent ) . '; --apc-title-width: ' . esc_attr( $title_width ) . 'px;';
 
 if ( $is_carousel ) :
     $autoplay = ! empty( $settings['autoplay'] ) ? 1 : 0;
