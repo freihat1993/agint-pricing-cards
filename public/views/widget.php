@@ -40,8 +40,10 @@ if ( ! function_exists( 'apc_render_card' ) ) {
         ?>
         <div class="apc-card<?php echo $is_popular ? ' is-popular' : ''; ?>">
 
-            <?php if ( $is_popular && '' !== $popular_label ) : ?>
-                <span class="apc-card__ribbon"><?php echo esc_html( $popular_label ); ?></span>
+            <?php
+            $badge = ( '' !== $plan['badge_text'] ) ? $plan['badge_text'] : $popular_label;
+            if ( $is_popular && '' !== $badge ) : ?>
+                <span class="apc-card__ribbon"><?php echo esc_html( $badge ); ?></span>
             <?php endif; ?>
 
             <div class="apc-card__head">

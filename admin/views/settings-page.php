@@ -85,6 +85,12 @@ function apc_render_plan_panel( $plan, $uid ) {
                 <input type="checkbox" data-field="popular" <?php checked( $popular ); ?> />
                 <span><strong><?php esc_html_e( 'Mark as Popular', 'agint-pricing-cards' ); ?></strong> <span class="apc-check__hint"><?php esc_html_e( '— highlights the card and shows the badge', 'agint-pricing-cards' ); ?></span></span>
             </label>
+
+            <div class="apc-field apc-badge-field" style="margin-top:12px;" <?php echo $popular ? '' : 'hidden'; ?>>
+                <label><?php esc_html_e( 'Badge text', 'agint-pricing-cards' ); ?></label>
+                <input type="text" class="apc-input apc-field--narrow" data-field="badge_text" value="<?php echo esc_attr( $plan['badge_text'] ); ?>" placeholder="<?php esc_attr_e( 'Popular', 'agint-pricing-cards' ); ?>" />
+                <p class="apc-help"><?php esc_html_e( 'Custom text for this plan\'s badge. Leave blank to use the default from Design & Display.', 'agint-pricing-cards' ); ?></p>
+            </div>
         </div>
 
         <!-- CONTENT -->

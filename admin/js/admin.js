@@ -170,7 +170,9 @@
             syncItem($(this).closest('.apc-plan'));
         });
         $panels.on('change', '[data-field="popular"]', function () {
-            syncItem($(this).closest('.apc-plan'));
+            var $plan = $(this).closest('.apc-plan');
+            syncItem($plan);
+            $plan.find('.apc-badge-field').prop('hidden', !$(this).is(':checked'));
         });
 
         /* ---------- icon media picker ---------- */

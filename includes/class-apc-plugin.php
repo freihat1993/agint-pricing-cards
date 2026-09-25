@@ -89,6 +89,7 @@ final class APC_Plugin {
             'icon_url'    => '',
             'show_icon'   => 1,
             'description' => '',
+            'badge_text'  => '', // per-plan badge label; blank = use global default
             'features'    => array(),
             'button_text' => __( 'Sign Up For Free', 'agint-pricing-cards' ),
             'button_url'  => '#',

@@ -185,6 +185,7 @@ class APC_Admin {
                 'icon_url'    => isset( $raw['icon_url'] ) ? esc_url_raw( $raw['icon_url'] ) : '',
                 'show_icon'   => empty( $raw['show_icon'] ) ? 0 : 1,
                 'description' => isset( $raw['description'] ) ? sanitize_textarea_field( $raw['description'] ) : '',
+                'badge_text'  => isset( $raw['badge_text'] ) ? sanitize_text_field( $raw['badge_text'] ) : '',
                 'features'    => $features,
                 'button_text' => isset( $raw['button_text'] ) ? sanitize_text_field( $raw['button_text'] ) : '',
                 'button_url'  => isset( $raw['button_url'] ) ? esc_url_raw( $raw['button_url'] ) : '',
